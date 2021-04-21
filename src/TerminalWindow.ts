@@ -113,4 +113,8 @@ export class TerminalWindow {
         this.#updateSizes(positionX, positionY, sizeX, sizeY);
         this.#drawBorders();
     }
+
+    addContent() {
+        
+    }
 }
