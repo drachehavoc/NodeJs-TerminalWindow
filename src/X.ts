@@ -1,11 +1,11 @@
 import { TerminalWindow } from "./TerminalWindow";
 
 export class X extends TerminalWindow {
+    #panelSize = this.painelSize;
     #selected = 0;
-
-    _filterDrawContentLine(line: string, cnt: number, lineLength: number) {
-        
-        return cnt == this.#selected
+    
+    _filterDrawContentLine(line: string, cnt: number, lineIdx: number, lineLength: number) {
+        return lineIdx == this.#selected
             ? `\x1b[45m\x1b[37m${line}\x1b[40m\x1b[37m`
             : `\x1b[40m\x1b[37m${line}`
     }

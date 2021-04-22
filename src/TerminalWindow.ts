@@ -180,16 +180,18 @@ export class TerminalWindow {
         const initialLine = this.#content.position.y;
         const initialColumn = this.#content.position.x;
         const clearLine = ` `.repeat(this.#contentPanel.size.x);
+        const lineSize = clearLine.length;
         let cnt = this.#contentPanel.size.y;
         this._write("\x1b[37m"); // selected color
         for (; cnt--;) {
-            let line = this.#content.data[cnt + initialLine];
+            const lineIdx = cnt + initialLine;
+            let line = this.#content.data[lineIdx];
             if (line) {
-                line = line.substr(initialColumn, clearLine.length);
-                line = line.padEnd(clearLine.length);
-                line = this._filterDrawContentLine(line, cnt, clearLine.length);
+                line = line.substr(initialColumn, lineSize);
+                line = line.padEnd(lineSize);
+                line = this._filterDrawContentLine(line, cnt, lineIdx, lineSize);
             } else {
-                line = this._filterDrawContentLine(clearLine, cnt, clearLine.length);
+                line = this._filterDrawContentLine(clearLine, cnt, lineIdx, lineSize);
             }
             this._cursor(this.#contentPanel, true, 0, true, cnt);
             this._write(line);
@@ -223,7 +225,7 @@ export class TerminalWindow {
         }
     }
 
-    _filterDrawContentLine(line: string, counter: number, lineLength: number) {
+    _filterDrawContentLine(line: string, counter: number, lineIdx: number, lineLength: number) {
         return line;
     }
 
@@ -241,6 +243,10 @@ export class TerminalWindow {
             this._drawBorders();
             this._drawContent();
         });
+    }
+
+    get painelSize() {
+        return { ...this.#contentPanel.size };
     }
 
     addLine(content: string) {
