@@ -1,4 +1,5 @@
 import { TerminalWindow } from "./TerminalWindow";
+import { TerminalWindowMenu } from "./TerminalWindowMenu";
 
 // -----------------------------------------------------------------------------
 
@@ -11,9 +12,17 @@ process.on('exit', () => {
 
 // -----------------------------------------------------------------------------
 
-const menu = new TerminalWindow(0, 0, 25, -10, 'menu');
-new TerminalWindow(0, -9, 25, null, 'info');
+const menu = new TerminalWindowMenu(0, 0, 25, -10, 'menu');
+const info = new TerminalWindow(0, -9, 25, null, 'info');
 const log = new TerminalWindow(26, 0, null, null, 'log');
+
+menu.addLine(`Option 1`);
+menu.addLine(`Option 2`);
+menu.addLine(`Option 3`);
+menu.addLine(`Option 4`);
+menu.addLine(`Option 5`);
+menu.addLine(`Option 6`);
+
 
 log.addLine(`
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. \x1b[36mVivamus tincidunt ligula sed dolor sollicitudin, non ullamcorper orci ultricies. Donec ligula ligula, interdum at blandit eget, venenatis et arcu. Sed sed ligula maximus, facilisis augue vel, tempor sapien. Pellentesque semper lobortis imperdiet. Morbi scelerisque vestibulum urna a commodo. Nullam erat tortor, fringilla et sapien eget, efficitur blandit leo. Nunc varius dignissim auctor. Nam hendrerit arcu eget eros faucibus, ac laoreet orci tristique.

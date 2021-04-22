@@ -4,8 +4,8 @@ type square = { start: coord, end: coord, size: coord }
 
 let currentWindow: TerminalWindow;
 let windowList: TerminalWindow[] = [];
-export class TerminalWindow {
 
+export class TerminalWindow {
     static walkWindow(step: number) {
         let currIdx = windowList.indexOf(currentWindow);
         let nextIdx = currIdx + step;
@@ -301,12 +301,15 @@ export class TerminalWindow {
 
     scrollRight() {
         if (this.#content.size.x < this.#contentPanel.size.x)
-            return
+            return;
+
         this.#content.position.x++;
+
         if (this.#content.position.x > this.#content.size.x - this.#contentPanel.size.x) {
             this.#content.position.x = this.#content.size.x - this.#contentPanel.size.x;
             return;
         }
+        
         this.#drawContent();
         this.#drawScrollBar();
     }
