@@ -10,18 +10,13 @@ export class TerminalWindow {
         let currIdx = windowList.indexOf(currentWindow);
         let nextIdx = currIdx + step;
         let prevWindow = currentWindow;
-
         if (nextIdx < 0)
             nextIdx = windowList.length - 1;
-
         if (nextIdx > windowList.length - 1)
             nextIdx = 0;
-
         currentWindow = windowList[nextIdx];
-
-        prevWindow.#drawBorders();
-        currentWindow.#drawBorders();
-
+        prevWindow._drawBorders();
+        currentWindow._drawBorders();
         return currentWindow;
     }
 
@@ -46,14 +41,13 @@ export class TerminalWindow {
     #contentPanel!: square;
     #stdout = process.stdout;
 
-    #updateSizes = (positionX: number, positionY: number, sizeX: number | null, sizeY: number | null) => {
+    _updateSizes = (positionX: number, positionY: number, sizeX: number | null, sizeY: number | null) => {
         if (positionX < 0)
             positionX = this.#stdout.columns + positionX;
 
         if (positionY < 0)
             positionY = this.#stdout.rows + positionY;
-        
-        
+
         if (sizeX == null)
             sizeX = this.#stdout.columns - positionX - 1;
 
@@ -101,137 +95,136 @@ export class TerminalWindow {
         };
     };
 
-    #write = (buffer: Uint8Array | string) => {
+    _write = (buffer: Uint8Array | string) => {
         return this.#stdout.write(buffer);
     };
 
-    #hideCursor = () => {
-        this.#write("\x1b[?25l");
+    _hideCursor = () => {
+        this._write("\x1b[?25l");
     }
 
-    #showCursor = () => {
-        this.#write("\x1b[?25h");
+    _showCursor = () => {
+        this._write("\x1b[?25h");
     }
 
-    #cursor = (origin: square, xFromStart: boolean, x: number, yFromStart: boolean, y: number) => {
-        x = xFromStart
-            ? x + origin.start.x
-            : x + origin.end.x;
-
-        y = yFromStart
-            ? y + origin.start.y
-            : y + origin.end.y;
-
+    _cursor = (origin: square, xFromStart: boolean, x: number, yFromStart: boolean, y: number) => {
+        x = xFromStart ? x + origin.start.x : x + origin.end.x;
+        y = yFromStart ? y + origin.start.y : y + origin.end.y;
         this.#stdout.cursorTo(x, y);
     };
 
-    #defaultColor = () => {
-        this.#write("\x1b[37m");
+    _defaultColor = () => {
+        this._write("\x1b[37m");
     }
 
-    #selectedColor = () => {
-        this.#write("\x1b[36m");
+    _selectedColor = () => {
+        this._write("\x1b[36m");
     }
 
-    #isSelectedColor = () => {
-        currentWindow == this
-            ? this.#selectedColor()
-            : this.#defaultColor()
+    _isSelectedColor = () => {
+        currentWindow == this ? this._selectedColor() : this._defaultColor()
     }
 
-    #drawBorders = () => {
-        this.#isSelectedColor();
+    _drawBorders = () => {
+        this._isSelectedColor();
 
         // - TOP LEFT
-        this.#cursor(this.#border, true, 0, true, 0);
-        this.#write("┌");
+        this._cursor(this.#border, true, 0, true, 0);
+        this._write("┌");
 
         // - TOP RIGHT
-        this.#cursor(this.#border, false, 0, true, 0);
-        this.#write("┐");
+        this._cursor(this.#border, false, 0, true, 0);
+        this._write("┐");
 
         // - BOTTOM LEFT
-        this.#cursor(this.#border, true, 0, false, 0);
-        this.#write("└");
+        this._cursor(this.#border, true, 0, false, 0);
+        this._write("└");
 
         // - BOTTOM RIGHT
-        this.#cursor(this.#border, false, 0, false, 0);
-        this.#write("┘");
+        this._cursor(this.#border, false, 0, false, 0);
+        this._write("┘");
 
         // - HORIZONTAL BAR TOP
         const horizontalBarTop = "─".repeat(this.#contentPanel.size.x);
-        this.#cursor(this.#border, true, 1, true, 0);
-        this.#write(horizontalBarTop);
+        this._cursor(this.#border, true, 1, true, 0);
+        this._write(horizontalBarTop);
 
         // - HORIZONTAL BAR BOTTOM
         const horizontalBarBottom = horizontalBarTop;
-        this.#cursor(this.#border, true, 1, false, 0);
-        this.#write(horizontalBarBottom);
+        this._cursor(this.#border, true, 1, false, 0);
+        this._write(horizontalBarBottom);
 
         // - VERTICAL BAR
         for (let cnt = this.#contentPanel.size.y; cnt--;) {
             // LEFT
-            this.#cursor(this.#border, true, 0, true, cnt + 1);
-            this.#write(`│`);
+            this._cursor(this.#border, true, 0, true, cnt + 1);
+            this._write(`│`);
             // RIGHT
-            this.#cursor(this.#border, false, 0, true, cnt + 1);
-            this.#write(`│`);
+            this._cursor(this.#border, false, 0, true, cnt + 1);
+            this._write(`│`);
         }
 
         // - TITLE
         if (this.#title) {
-            this.#cursor(this.#border, true, 1, true, 0);
+            this._cursor(this.#border, true, 1, true, 0);
             const title = this.#title.substring(0, this.#border.size.x - 3);
-            if (title.length) {
-                this.#write(`[${title}]`);
-            }
+            if (title.length)
+                this._write(`[${title}]`);
         }
 
         //
-        this.#drawScrollBar();
+        this._drawScrollBar();
     }
 
-    #drawContent = () => {
+    _drawContent = () => {
         const initialLine = this.#content.position.y;
         const initialColumn = this.#content.position.x;
         const clearLine = ` `.repeat(this.#contentPanel.size.x);
         let cnt = this.#contentPanel.size.y;
-        this.#write("\x1b[37m"); // selected color
+        this._write("\x1b[37m"); // selected color
         for (; cnt--;) {
-            const line = this.#content.data[cnt + initialLine]
-                ?.substr(initialColumn, clearLine.length)
-                ?.padEnd(clearLine.length);
-            this.#cursor(this.#contentPanel, true, 0, true, cnt);
-            this.#write(line ?? clearLine);
+            let line = this.#content.data[cnt + initialLine];
+            if (line) {
+                line = line.substr(initialColumn, clearLine.length);
+                line = line.padEnd(clearLine.length);
+                line = this._filterDrawContentLine(line, cnt, clearLine.length);
+            } else {
+                line = this._filterDrawContentLine(clearLine, cnt, clearLine.length);
+            }
+            this._cursor(this.#contentPanel, true, 0, true, cnt);
+            this._write(line);
         }
     }
 
-    #calcBarPosition = (direction: "x" | "y") => {
+    _calcBarPosition = (direction: "x" | "y") => {
         const pos = this.#content.position[direction];
         const lmt = this.#contentPanel.size[direction] - 1;
         const tot = this.#content.size[direction] - this.#contentPanel.size[direction];
         return Math.round((pos * lmt) / tot);
     }
 
-    #drawScrollBar = () => {
-        this.#isSelectedColor();
+    _drawScrollBar = () => {
+        this._isSelectedColor();
 
         if (this.#content.size.y > this.#contentPanel.size.y) {
-            this.#cursor(this.#border, false, 0, true, this.#scrollbar.position.y + 1);
-            this.#write(`│`)
-            this.#scrollbar.position.y = this.#calcBarPosition("y");
-            this.#cursor(this.#border, false, 0, true, this.#scrollbar.position.y + 1);
-            this.#write(`║`)
+            this._cursor(this.#border, false, 0, true, this.#scrollbar.position.y + 1);
+            this._write(`│`)
+            this.#scrollbar.position.y = this._calcBarPosition("y");
+            this._cursor(this.#border, false, 0, true, this.#scrollbar.position.y + 1);
+            this._write(`║`)
         }
 
         if (this.#content.size.x > this.#contentPanel.size.x) {
-            this.#cursor(this.#border, true, this.#scrollbar.position.x + 1, false, 0);
-            this.#write(`─`)
-            this.#scrollbar.position.x = this.#calcBarPosition("x");
-            this.#cursor(this.#border, true, this.#scrollbar.position.x + 1, false, 0);
-            this.#write(`═`)
+            this._cursor(this.#border, true, this.#scrollbar.position.x + 1, false, 0);
+            this._write(`─`)
+            this.#scrollbar.position.x = this._calcBarPosition("x");
+            this._cursor(this.#border, true, this.#scrollbar.position.x + 1, false, 0);
+            this._write(`═`)
         }
+    }
 
+    _filterDrawContentLine(line: string, counter: number, lineLength: number) {
+        return line;
     }
 
     constructor(positionX: number, positionY: number, sizeX: number | null, sizeY: number | null, title: string = "") {
@@ -241,12 +234,12 @@ export class TerminalWindow {
         this.#title = title;
         this.#content = { data: [], position: { x: 0, y: 0 }, size: { x: 0, y: 0 } };
         this.#scrollbar = { position: { x: 0, y: 0 } };
-        this.#updateSizes(positionX, positionY, sizeX, sizeY);
-        this.#drawBorders();
+        this._updateSizes(positionX, positionY, sizeX, sizeY);
+        this._drawBorders();
         this.#stdout.on('resize', () => {
-            this.#updateSizes(positionX, positionY, sizeX, sizeY);
-            this.#drawBorders();
-            this.#drawContent();
+            this._updateSizes(positionX, positionY, sizeX, sizeY);
+            this._drawBorders();
+            this._drawContent();
         });
     }
 
@@ -259,8 +252,8 @@ export class TerminalWindow {
         });
         this.#content.data.push(...contentLines);
         this.#content.size.y = this.#content.data.length;
-        this.#drawContent();
-        this.#drawScrollBar();
+        this._drawContent();
+        this._drawScrollBar();
     }
 
     scrollUp() {
@@ -271,8 +264,8 @@ export class TerminalWindow {
             this.#content.position.y = 0;
             return;
         }
-        this.#drawContent();
-        this.#drawScrollBar();
+        this._drawContent();
+        this._drawScrollBar();
     }
 
     scrollDown() {
@@ -283,8 +276,8 @@ export class TerminalWindow {
             this.#content.position.y = this.#content.size.y - this.#contentPanel.size.y;
             return;
         }
-        this.#drawContent();
-        this.#drawScrollBar();
+        this._drawContent();
+        this._drawScrollBar();
     }
 
     scrollLeft() {
@@ -295,8 +288,8 @@ export class TerminalWindow {
             this.#content.position.x = 0;
             return;
         }
-        this.#drawContent();
-        this.#drawScrollBar();
+        this._drawContent();
+        this._drawScrollBar();
     }
 
     scrollRight() {
@@ -307,7 +300,7 @@ export class TerminalWindow {
             this.#content.position.x = this.#content.size.x - this.#contentPanel.size.x;
             return;
         }
-        this.#drawContent();
-        this.#drawScrollBar();
+        this._drawContent();
+        this._drawScrollBar();
     }
 }

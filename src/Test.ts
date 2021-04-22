@@ -1,3 +1,4 @@
+import { X } from "./X";
 import { TerminalWindow } from "./TerminalWindow";
 
 // -----------------------------------------------------------------------------
@@ -11,9 +12,19 @@ process.on('exit', () => {
 
 // -----------------------------------------------------------------------------
 
-const menu = new TerminalWindow(0, 0, 25, -10, 'menu');
-new TerminalWindow(0, -9, 25, null, 'info');
+const menu = new X(0, 0, 25, -10, 'menu');
+const info = new TerminalWindow(0, -9, 25, null, 'info');
 const log = new TerminalWindow(26, 0, null, null, 'log');
+
+menu.addLine(`Option 1`);
+menu.addLine(`Option 2`);
+menu.addLine(`Option 3`);
+menu.addLine(`Option 4`);
+menu.addLine(`Option 5`);
+menu.addLine(`Option 6`);
+menu.addLine(`Option 7`);
+menu.addLine(`Option 8`);
+menu.addLine(`Option 9`);
 
 log.addLine(`
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. \x1b[36mVivamus tincidunt ligula sed dolor sollicitudin, non ullamcorper orci ultricies. Donec ligula ligula, interdum at blandit eget, venenatis et arcu. Sed sed ligula maximus, facilisis augue vel, tempor sapien. Pellentesque semper lobortis imperdiet. Morbi scelerisque vestibulum urna a commodo. Nullam erat tortor, fringilla et sapien eget, efficitur blandit leo. Nunc varius dignissim auctor. Nam hendrerit arcu eget eros faucibus, ac laoreet orci tristique.
@@ -354,6 +365,20 @@ stdin.on("keypress", (c, key) => {
     if (key.name == "tab" && key.shift) {
         TerminalWindow.prevWindow();
         return;
+    }
+
+    if (key.name == "q") {
+        if (TerminalWindow.currentWindow instanceof X) {
+            TerminalWindow.currentWindow.menuUp();
+            return;
+        }
+    }
+
+    if (key.name == "a") {
+        if (TerminalWindow.currentWindow instanceof X) {
+            TerminalWindow.currentWindow.menuDown();
+            return;
+        }
     }
 
     if (key.name == "tab") {
