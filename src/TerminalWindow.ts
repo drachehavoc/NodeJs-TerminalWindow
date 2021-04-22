@@ -191,7 +191,7 @@ export class TerminalWindow {
                 line = line.padEnd(lineSize);
                 line = this._filterDrawContentLine(line, cnt, lineIdx, lineSize);
             } else {
-                line = this._filterDrawContentLine(clearLine, cnt, lineIdx, lineSize);
+                line = this._filterDrawContentLine(clearLine, cnt, null, lineSize);
             }
             this._cursor(this.#contentPanel, true, 0, true, cnt);
             this._write(line);
@@ -225,7 +225,7 @@ export class TerminalWindow {
         }
     }
 
-    _filterDrawContentLine(line: string, counter: number, lineIdx: number, lineLength: number) {
+    _filterDrawContentLine(line: string, counter: number, lineIdx: number | null, lineLength: number) {
         return line;
     }
 
@@ -247,6 +247,10 @@ export class TerminalWindow {
 
     get painelSize() {
         return { ...this.#contentPanel.size };
+    }
+
+    get contentSize() {
+        return { ...this.#content.size };
     }
 
     addLine(content: string) {
