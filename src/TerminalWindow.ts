@@ -253,6 +253,10 @@ export class TerminalWindow {
         return { ...this.#content.size };
     }
 
+    get contentPosition() {
+        return { ...this.#content.position };
+    }
+
     addLine(content: string) {
         const contentLines = content.split(/\n/gm);
         contentLines.forEach(content => {
@@ -312,8 +316,8 @@ export class TerminalWindow {
             this.#content.position.x = this.#content.size.x - this.#contentPanel.size.x;
             return;
         }
-        
-        this.#drawContent();
-        this.#drawScrollBar();
+
+        this._drawContent();
+        this._drawScrollBar();
     }
 }

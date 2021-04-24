@@ -1,4 +1,3 @@
-import { X } from "./X";
 import { TerminalWindow } from "./TerminalWindow";
 import { TerminalWindowMenu } from "./TerminalWindowMenu";
 
@@ -13,23 +12,40 @@ process.on('exit', () => {
 
 // -----------------------------------------------------------------------------
 
-<<<<<<< HEAD
 const menu = new TerminalWindowMenu(0, 0, 25, -10, 'menu');
-=======
-const menu = new X(0, 0, 25, -10, 'menu');
->>>>>>> edadaafb5228851dd824bc9513400fecb7718acd
 const info = new TerminalWindow(0, -9, 25, null, 'info');
 const log = new TerminalWindow(26, 0, null, null, 'log');
 
-menu.addLine(`Option 1`);
-menu.addLine(`Option 2`);
-menu.addLine(`Option 3`);
-menu.addLine(`Option 4`);
-menu.addLine(`Option 5`);
-menu.addLine(`Option 6`);
-menu.addLine(`Option 7`);
-menu.addLine(`Option 8`);
-menu.addLine(`Option 9`);
+menu.addLine(`Option 01 ___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|`);
+menu.addLine(`Option 02`);
+menu.addLine(`Option 03`);
+menu.addLine(`Option 04`);
+menu.addLine(`Option 05`);
+menu.addLine(`Option 06`);
+menu.addLine(`Option 07`);
+menu.addLine(`Option 08`);
+menu.addLine(`Option 09`);
+menu.addLine(`Option 10`);
+menu.addLine(`Option 11`);
+menu.addLine(`Option 12`);
+menu.addLine(`Option 13`);
+menu.addLine(`Option 14`);
+menu.addLine(`Option 15`);
+menu.addLine(`Option 16`);
+menu.addLine(`Option 17`);
+menu.addLine(`Option 18`);
+menu.addLine(`Option 19`);
+menu.addLine(`Option 20`);
+menu.addLine(`Option 21`);
+menu.addLine(`Option 22`);
+menu.addLine(`Option 23`);
+menu.addLine(`Option 24`);
+menu.addLine(`Option 25`);
+menu.addLine(`Option 26`);
+menu.addLine(`Option 27`);
+menu.addLine(`Option 28`);
+menu.addLine(`Option 29`);
+menu.addLine(`Option 30`);
 
 log.addLine(`
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. \x1b[36mVivamus tincidunt ligula sed dolor sollicitudin, non ullamcorper orci ultricies. Donec ligula ligula, interdum at blandit eget, venenatis et arcu. Sed sed ligula maximus, facilisis augue vel, tempor sapien. Pellentesque semper lobortis imperdiet. Morbi scelerisque vestibulum urna a commodo. Nullam erat tortor, fringilla et sapien eget, efficitur blandit leo. Nunc varius dignissim auctor. Nam hendrerit arcu eget eros faucibus, ac laoreet orci tristique.
@@ -372,22 +388,19 @@ stdin.on("keypress", (c, key) => {
         return;
     }
 
-    if (key.name == "q") {
-        if (TerminalWindow.currentWindow instanceof X) {
-            TerminalWindow.currentWindow.menuUp();
-            return;
-        }
-    }
-
-    if (key.name == "a") {
-        if (TerminalWindow.currentWindow instanceof X) {
-            TerminalWindow.currentWindow.menuDown();
-            return;
-        }
-    }
-
     if (key.name == "tab") {
         TerminalWindow.nextWindow();
+        return;
+    }
+
+
+    if (key.name == "up" && key.ctrl && TerminalWindow.currentWindow instanceof TerminalWindowMenu) {
+        TerminalWindow.currentWindow.onlyScrollUp();
+        return;
+    }
+
+    if (key.name == "down" && key.ctrl && TerminalWindow.currentWindow instanceof TerminalWindowMenu) {
+        TerminalWindow.currentWindow.onlyScrollDown();
         return;
     }
 

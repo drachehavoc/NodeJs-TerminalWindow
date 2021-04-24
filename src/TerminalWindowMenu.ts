@@ -1,20 +1,58 @@
 import { TerminalWindow } from "./TerminalWindow";
 
 export class TerminalWindowMenu extends TerminalWindow {
-    #selectedIdx = 0;
+    #selected = 0;
 
-    #drawContent = () => {
-        // const initialLine = this.#content.position.y;
-        // const initialColumn = this.#content.position.x;
-        // const clearLine = ` `.repeat(this.#contentPanel.size.x);
-        // let cnt = this.#contentPanel.size.y;
-        // this.#write("\x1b[37m"); // selected color
-        // for (; cnt--;) {
-        //     const line = this.#content.data[cnt + initialLine]
-        //         ?.substr(initialColumn, clearLine.length)
-        //         ?.padEnd(clearLine.length);
-        //     this.#cursor(this.#contentPanel, true, 0, true, cnt);
-        //     this.#write(line ?? clearLine);
-        // }
+    _filterDrawContentLine(line: string, cnt: number, lineIdx: number, lineLength: number) {
+        return lineIdx == this.#selected
+            ? `\x1b[45m\x1b[37m${line}\x1b[0m`
+            : `\x1b[0m${line}`
+    }
+
+    onlyScrollDown() {
+        super.scrollDown();
+    }
+    
+    onlyScrollUp() {
+        super.scrollUp()
+    }
+
+    scrollDown() {
+        this.#selected++;
+        const contentSizeY = this.contentSize.y - 1;
+        
+        if (this.#selected > contentSizeY) {
+            this.#selected = contentSizeY;
+            return;
+        }
+
+        const painelSizeY = this.painelSize.y;
+        const positionY = this.contentPosition.y;
+
+        if (this.#selected >= painelSizeY + positionY) {
+            super.scrollDown();
+            return;
+        }
+
+        this._drawContent();
+    }
+
+    scrollUp() {
+        this.#selected--;
+
+        if (this.#selected < 0) {
+            this.#selected = 0;
+            return;
+        }
+
+        const painelSizeY = this.painelSize.y;
+        const positionY = this.contentPosition.y;
+
+        if (this.#selected - positionY < 0) {
+            super.scrollUp();
+            return;
+        }
+
+        this._drawContent();
     }
 }
