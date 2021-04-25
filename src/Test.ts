@@ -16,39 +16,41 @@ const menu = new TerminalWindowMenu(0, 0, 25, -10, 'menu');
 const info = new TerminalWindow(0, -9, 25, null, 'info');
 const log = new TerminalWindow(26, 0, null, null, 'log');
 
-menu.addLine(`Option 01 ___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|`);
-menu.addLine(`Option 02`);
-menu.addLine(`Option 03`);
-menu.addLine(`Option 04`);
-menu.addLine(`Option 05`);
-menu.addLine(`Option 06`);
-menu.addLine(`Option 07`);
-menu.addLine(`Option 08`);
-menu.addLine(`Option 09`);
-menu.addLine(`Option 10`);
-menu.addLine(`Option 11`);
-menu.addLine(`Option 12`);
-menu.addLine(`Option 13`);
-menu.addLine(`Option 14`);
-menu.addLine(`Option 15`);
-menu.addLine(`Option 16`);
-menu.addLine(`Option 17`);
-menu.addLine(`Option 18`);
-menu.addLine(`Option 19`);
-menu.addLine(`Option 20`);
-menu.addLine(`Option 21`);
-menu.addLine(`Option 22`);
-menu.addLine(`Option 23`);
-menu.addLine(`Option 24`);
-menu.addLine(`Option 25`);
-menu.addLine(`Option 26`);
-menu.addLine(`Option 27`);
-menu.addLine(`Option 28`);
-menu.addLine(`Option 29`);
-menu.addLine(`Option 30`);
 
-log.addLine(`
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. \x1b[36mVivamus tincidunt ligula sed dolor sollicitudin, non ullamcorper orci ultricies. Donec ligula ligula, interdum at blandit eget, venenatis et arcu. Sed sed ligula maximus, facilisis augue vel, tempor sapien. Pellentesque semper lobortis imperdiet. Morbi scelerisque vestibulum urna a commodo. Nullam erat tortor, fringilla et sapien eget, efficitur blandit leo. Nunc varius dignissim auctor. Nam hendrerit arcu eget eros faucibus, ac laoreet orci tristique.
+info.panel.addLine("teste");
+
+// menu.addLine(`Option 01 ___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|`);
+// menu.addLine(`Option 02`);
+// menu.addLine(`Option 03`);
+// menu.addLine(`Option 04`);
+// menu.addLine(`Option 05`);
+// menu.addLine(`Option 06`);
+// menu.addLine(`Option 07`);
+// menu.addLine(`Option 08`);
+// menu.addLine(`Option 09`);
+// menu.addLine(`Option 10`);
+// menu.addLine(`Option 11`);
+// menu.addLine(`Option 12`);
+// menu.addLine(`Option 13`);
+// menu.addLine(`Option 14`);
+// menu.addLine(`Option 15`);
+// menu.addLine(`Option 16`);
+// menu.addLine(`Option 17`);
+// menu.addLine(`Option 18`);
+// menu.addLine(`Option 19`);
+// menu.addLine(`Option 20`);
+// menu.addLine(`Option 21`);
+// menu.addLine(`Option 22`);
+// menu.addLine(`Option 23`);
+// menu.addLine(`Option 24`);
+// menu.addLine(`Option 25`);
+// menu.addLine(`Option 26`);
+// menu.addLine(`Option 27`);
+// menu.addLine(`Option 28`);
+// menu.addLine(`Option 29`);
+// menu.addLine(`Option 30`);
+
+log.panel.addLine(`Lorem ipsum dolor sit amet, consectetur adipiscing elit. \x1b[36mVivamus tincidunt ligula sed dolor sollicitudin, non ullamcorper orci ultricies. Donec ligula ligula, interdum at blandit eget, venenatis et arcu. Sed sed ligula maximus, facilisis augue vel, tempor sapien. Pellentesque semper lobortis imperdiet. Morbi scelerisque vestibulum urna a commodo. Nullam erat tortor, fringilla et sapien eget, efficitur blandit leo. Nunc varius dignissim auctor. Nam hendrerit arcu eget eros faucibus, ac laoreet orci tristique.
 
 Aliquam nulla elit, viverra et libero rutrum, tristique auctor dui. Mauris sed dolor sed leo dapibus sollicitudin. Sed id tincidunt nunc. Morbi enim est, pulvinar non suscipit volutpat, mattis in sapien. Mauris ac tellus dui. In vel urna tellus. Nullam mauris neque, cursus id augue nec, volutpat lacinia purus. Phasellus a ullamcorper odio.
 
@@ -346,8 +348,7 @@ Nam rutrum dictum magna, quis gravida ex. Nullam consectetur neque a dignissim h
 
 Proin porta malesuada turpis non feugiat. Donec feugiat vulputate risus, id convallis velit tristique et. Sed semper vitae libero vitae condimentum. Pellentesque ultrices pellentesque eros. Nulla faucibus ullamcorper vestibulum. Proin efficitur eget libero et commodo. Integer varius tellus vitae lectus venenatis venenatis. Nulla ac finibus erat, a malesuada ante. Aliquam mattis mauris ligula, a scelerisque augue aliquam ac.
 
-Vestibulum non pellentesque dolor. Pellentesque id lorem nec purus laoreet ultricies. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce at sollicitudin purus. Sed mollis ut odio eget viverra. Cras nec nulla ligula. Nunc malesuada odio at arcu sollicitudin, ac laoreet ex maximus. Nunc vel tempus dui. Sed dignissim diam nec leo tincidunt maximus. Nunc sed fringilla elit, pretium consectetur elit. Quisque egestas felis lacinia, tristique urna vel, laoreet urna. 
-`);
+Vestibulum non pellentesque dolor. Pellentesque id lorem nec purus laoreet ultricies. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce at sollicitudin purus. Sed mollis ut odio eget viverra. Cras nec nulla ligula. Nunc malesuada odio at arcu sollicitudin, ac laoreet ex maximus. Nunc vel tempus dui. Sed dignissim diam nec leo tincidunt maximus. Nunc sed fringilla elit, pretium consectetur elit. Quisque egestas felis lacinia, tristique urna vel, laoreet urna.`);
 
 // menu.addLine("AAA 001 0123456789 001 0123456789 001 0123456789 001 0123456789 001 0123456789 BBB");
 // menu.addLine("AAA 002 0123456789 002 0123456789 002 0123456789 002 0123456789 002 0123456789 BBB");
@@ -393,34 +394,33 @@ stdin.on("keypress", (c, key) => {
         return;
     }
 
+    // if (key.name == "up" && key.ctrl && TerminalWindow.currentWindow instanceof TerminalWindowMenu) {
+    //     TerminalWindow.currentWindow.onlyScrollUp();
+    //     return;
+    // }
 
-    if (key.name == "up" && key.ctrl && TerminalWindow.currentWindow instanceof TerminalWindowMenu) {
-        TerminalWindow.currentWindow.onlyScrollUp();
-        return;
-    }
-
-    if (key.name == "down" && key.ctrl && TerminalWindow.currentWindow instanceof TerminalWindowMenu) {
-        TerminalWindow.currentWindow.onlyScrollDown();
-        return;
-    }
+    // if (key.name == "down" && key.ctrl && TerminalWindow.currentWindow instanceof TerminalWindowMenu) {
+    //     TerminalWindow.currentWindow.onlyScrollDown();
+    //     return;
+    // }
 
     if (key.name == "up") {
-        TerminalWindow.currentWindow.scrollUp();
+        TerminalWindow.currentWindow.panel.scrollUp();
         return;
     }
 
     if (key.name == "down") {
-        TerminalWindow.currentWindow.scrollDown();
+        TerminalWindow.currentWindow.panel.scrollDown();
         return;
     }
 
     if (key.name == "left") {
-        TerminalWindow.currentWindow.scrollLeft();
+        TerminalWindow.currentWindow.panel.scrollLeft();
         return;
     }
 
     if (key.name == "right") {
-        TerminalWindow.currentWindow.scrollRight();
+        TerminalWindow.currentWindow.panel.scrollRight();
         return;
     }
 

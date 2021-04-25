@@ -9,50 +9,50 @@ export class TerminalWindowMenu extends TerminalWindow {
             : `\x1b[0m${line}`
     }
 
-    onlyScrollDown() {
-        super.scrollDown();
-    }
+    // onlyScrollDown() {
+    //     super.scrollDown();
+    // }
     
-    onlyScrollUp() {
-        super.scrollUp()
-    }
+    // onlyScrollUp() {
+    //     super.scrollUp()
+    // }
 
-    scrollDown() {
-        this.#selected++;
-        const contentSizeY = this.contentSize.y - 1;
+    // scrollDown() {
+    //     this.#selected++;
+    //     const contentSizeY = this.contentSize.y - 1;
         
-        if (this.#selected > contentSizeY) {
-            this.#selected = contentSizeY;
-            return;
-        }
+    //     if (this.#selected > contentSizeY) {
+    //         this.#selected = contentSizeY;
+    //         return;
+    //     }
 
-        const painelSizeY = this.painelSize.y;
-        const positionY = this.contentPosition.y;
+    //     const painelSizeY = this.painelSize.y;
+    //     const positionY = this.contentPosition.y;
 
-        if (this.#selected >= painelSizeY + positionY) {
-            super.scrollDown();
-            return;
-        }
+    //     if (this.#selected >= painelSizeY + positionY) {
+    //         super.scrollDown();
+    //         return;
+    //     }
 
-        this._drawContent();
-    }
+    //     this._drawContent();
+    // }
 
-    scrollUp() {
-        this.#selected--;
+    // scrollUp() {
+    //     this.#selected--;
 
-        if (this.#selected < 0) {
-            this.#selected = 0;
-            return;
-        }
+    //     if (this.#selected < 0) {
+    //         this.#selected = 0;
+    //         return;
+    //     }
 
-        const painelSizeY = this.painelSize.y;
-        const positionY = this.contentPosition.y;
+    //     const painelSizeY = this.painelSize.y;
+    //     const positionY = this.contentPosition.y;
 
-        if (this.#selected - positionY < 0) {
-            super.scrollUp();
-            return;
-        }
+    //     if (this.#selected - positionY < 0) {
+    //         super.scrollUp();
+    //         return;
+    //     }
 
-        this._drawContent();
-    }
+    //     this._drawContent();
+    // }
 }
