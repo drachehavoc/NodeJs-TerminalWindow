@@ -8,3 +8,5 @@ forma fácil de controlar interfaces no terminal
 ## Roadmap
 - [ ] criar uma janela que possa ser usada como menu
 - [ ] corrigir o bug dos caracteres de escape
+
+123
