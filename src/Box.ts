@@ -1,9 +1,53 @@
 const zeroCoord = () => ({ x: NaN, y: NaN });
 
+export class LinkedBox {
+    #parentBox: Box;
+    #adapt: { start: { x: number, y: number }, size: { x: number, y: number } };
+
+    constructor(parentBox: Box, startX: number = 0, startY: number = 0, sizeX: number = 0, sizeY: number = 0) {
+        this.#parentBox = parentBox;
+        this.#adapt = {
+            start: { x: startX, y: startY },
+            size: { x: sizeX, y: sizeY },
+        }
+    }
+
+    get start() {
+        const p = this.#parentBox.start;
+        const a = this.#adapt.start;
+        return {
+            x: p.x + a.x,
+            y: p.y + a.y
+        };
+    }
+
+    get end() {
+        const p = this.#parentBox.end;
+        const a = this.#adapt.size;
+        return {
+            x: p.x + a.x,
+            y: p.y + a.y
+        };
+    }
+
+    get size() {
+        const s = this.#parentBox.size;
+        const a = this.#adapt.size;
+        const x = s.x + a.x
+        const y = s.y + a.y
+        const l = {
+            x: x < 0 ? 0 : x,
+            y: y < 0 ? 0 : y,
+        }
+        return l;
+    }
+}
+
 export class Box {
     #start: coord = zeroCoord();
     #end: coord = zeroCoord();
     #size: coord = zeroCoord();
+    #linkedBoxex: Set<LinkedBox> = new Set();
 
     constructor(startX: number, startY: number) {
         this.setStart(startX, startY);
@@ -29,10 +73,10 @@ export class Box {
         this.#size.y = this.#start.y - this.#end.y;
     }
 
-    clone(startX: number = 0, startY: number = 0, sizeX: number = 0, sizeY: number = 0) {
-        const n = new Box(this.#start.x + startX, this.#start.y + startY);
-        n.setSize(this.#size.x + sizeX, this.#size.y + sizeY);
-        return n;
+    linkedBox(startX: number = 0, startY: number = 0, sizeX: number = 0, sizeY: number = 0) {
+        const linkedBox = new LinkedBox(this, startX, startY, sizeX, sizeY);
+        this.#linkedBoxex.add(linkedBox);
+        return linkedBox;
     }
 
     setStart(x: number, y: number) {

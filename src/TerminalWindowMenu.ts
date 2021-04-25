@@ -9,7 +9,6 @@ export class PanelMenu extends Panel {
     #onSlectCallbacks: TOnselectCallback[] = [];
 
     _hook_drawLineContent(content: string, info: TDrawContentHookData) {
-
         if (!content) {
             this.cursor.write((' '.repeat(info.line.size)));
             return;

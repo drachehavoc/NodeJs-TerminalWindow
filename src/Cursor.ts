@@ -1,4 +1,4 @@
-import { Box } from "./Box";
+import { Box, LinkedBox } from "./Box";
 
 const colors = {
     foreground: {
@@ -25,10 +25,10 @@ const colors = {
 }
 
 export class Cursor {
-    #box: Box;
+    #box: Box | LinkedBox;
     #position: coord;
 
-    constructor(square: Box) {
+    constructor(square: Box | LinkedBox) {
         this.#box = square;
         this.#position = square.start;
     }

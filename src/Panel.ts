@@ -1,18 +1,18 @@
 import { Cursor } from "./Cursor";
-import { Box } from "./Box";
+import { Box, LinkedBox } from "./Box";
 
 type TCallback = () => any;
 
 export class Panel {
-    #box: Box;
+    #box: Box | LinkedBox;
     #position: coord = { x: 0, y: 0 };
     #size: coord = { x: 0, y: 0 };
     #cursor: Cursor;
     #data: string[] = [];
     #callbackOnDraw: TCallback | null;
 
-    constructor(square: Box, callback?: TCallback) {
-        this.#box = square;
+    constructor(box: Box | LinkedBox, callback?: TCallback) {
+        this.#box = box;
         this.#callbackOnDraw = callback ?? null;
         this.#cursor = new Cursor(this.#box);
     }
@@ -65,8 +65,9 @@ export class Panel {
     scrollDown() {
         this.#position.y++;
         const panelSizeY = this.#box.size.y;
-        if (this.#position.y > this.#size.y - panelSizeY) {
-            this.#position.y = this.#size.y - panelSizeY;
+        const limit = this.#size.y - panelSizeY;
+        if (this.#position.y > limit) {
+            this.#position.y = limit < 0 ? 0 : limit;
             return;
         }
         this.drawContent();
@@ -95,6 +96,7 @@ export class Panel {
         //
         const initRow = this.#position.y;
         const lineSize = this.#box.size.x;
+
         //
         for (let lineNumber = this.#box.size.y; lineNumber--;) {
             const lineIndex = lineNumber + initRow;

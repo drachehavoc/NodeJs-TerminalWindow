@@ -34,14 +34,13 @@ export class TerminalWindowGroup extends TerminalWindow {
     }
 
     selectPanel(panel: ItemGroupPanel | Panel) {
-        if (!this.#panels.has(panel))
+        const title = this.#panels.get(panel);
+        if (!title)
             throw new Error("Painel informado não faz parte dos painies associados ao TerminalWindowGroup");
-
         const current = protectedData.get(this);
-
         if (current) {
             current.panel = panel;
-        
+            current.title = title;
             this.update();
         }
     }

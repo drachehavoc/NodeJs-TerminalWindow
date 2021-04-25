@@ -57,6 +57,12 @@ export class TerminalWindow {
         this.#scrollbar = { position: { x: 0, y: 0 } };
         //
         this.#drawFrame();
+        //
+        process.stdout.on('resize', () => {
+            this.#box.setStart(positionX, positionY);
+            this.#box.setSize(sizeX, sizeY);
+            this.update();
+        });
     }
 
     get PanelClass() {
@@ -69,7 +75,7 @@ export class TerminalWindow {
 
     get panel() {
         if (!this.#panel)
-            this.#panel = new this.PanelClass(this.#box.clone(1, 1, -1, -1), this.#drawScrollBars.bind(this));
+            this.#panel = new this.PanelClass(this.#box.linkedBox(1, 1, -1, -1), this.#drawScrollBars.bind(this));
         return this.#panel;
     }
 
