@@ -16,39 +16,50 @@ const menu = new TerminalWindowMenu(0, 0, 25, -10, 'menu');
 const info = new TerminalWindow(0, -9, 25, null, 'info');
 const log = new TerminalWindow(26, 0, null, null, 'log');
 
+menu.panel.addLine(`Option 01 ___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|`);
+menu.panel.addLine(`Option 02`);
+menu.panel.addLine(`Option 03`);
+menu.panel.addLine(`Option 04`);
+menu.panel.addLine(`Option 05`);
+menu.panel.addLine(`Option 06`);
+menu.panel.addLine(`Option 07`);
+menu.panel.addLine(`Option 08`);
+menu.panel.addLine(`Option 09`);
+menu.panel.addLine(`Option 10`);
+menu.panel.addLine(`Option 11`);
+menu.panel.addLine(`Option 12`);
+menu.panel.addLine(`Option 13`);
+menu.panel.addLine(`Option 14`);
+menu.panel.addLine(`Option 15`);
+menu.panel.addLine(`Option 16`);
+menu.panel.addLine(`Option 17`);
+menu.panel.addLine(`Option 18`);
+menu.panel.addLine(`Option 19`);
+menu.panel.addLine(`Option 20`);
+menu.panel.addLine(`Option 21`);
+menu.panel.addLine(`Option 22`);
+menu.panel.addLine(`Option 23`);
+menu.panel.addLine(`Option 24`);
+menu.panel.addLine(`Option 25`);
+menu.panel.addLine(`Option 26`);
+menu.panel.addLine(`Option 27`);
+menu.panel.addLine(`Option 28`);
+menu.panel.addLine(`Option 29`);
+menu.panel.addLine(`Option 30`);
 
-info.panel.addLine("teste");
-
-// menu.addLine(`Option 01 ___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|`);
-// menu.addLine(`Option 02`);
-// menu.addLine(`Option 03`);
-// menu.addLine(`Option 04`);
-// menu.addLine(`Option 05`);
-// menu.addLine(`Option 06`);
-// menu.addLine(`Option 07`);
-// menu.addLine(`Option 08`);
-// menu.addLine(`Option 09`);
-// menu.addLine(`Option 10`);
-// menu.addLine(`Option 11`);
-// menu.addLine(`Option 12`);
-// menu.addLine(`Option 13`);
-// menu.addLine(`Option 14`);
-// menu.addLine(`Option 15`);
-// menu.addLine(`Option 16`);
-// menu.addLine(`Option 17`);
-// menu.addLine(`Option 18`);
-// menu.addLine(`Option 19`);
-// menu.addLine(`Option 20`);
-// menu.addLine(`Option 21`);
-// menu.addLine(`Option 22`);
-// menu.addLine(`Option 23`);
-// menu.addLine(`Option 24`);
-// menu.addLine(`Option 25`);
-// menu.addLine(`Option 26`);
-// menu.addLine(`Option 27`);
-// menu.addLine(`Option 28`);
-// menu.addLine(`Option 29`);
-// menu.addLine(`Option 30`);
+info.panel.addLine("INICIO < __ | __ | __ | __ | __ | __ | __ | __ | __ | __ | __ | __ | __ | __ > FIM");
+info.panel.addLine("INICIO                                    |                                  > FIM");
+info.panel.addLine("INICIO                                    |                                  > FIM");
+info.panel.addLine("INICIO                                    |                                  > FIM");
+info.panel.addLine("INICIO                                    |                                  > FIM");
+info.panel.addLine("INICIO                                    |                                  > FIM");
+info.panel.addLine("INICIO                                    |                                  > FIM");
+info.panel.addLine("INICIO                                    |                                  > FIM");
+info.panel.addLine("INICIO                                    |                                  > FIM");
+info.panel.addLine("INICIO                                    |                                  > FIM");
+info.panel.addLine("INICIO                                    |                                  > FIM");
+info.panel.addLine("INICIO                                    |                                  > FIM");
+info.panel.addLine("INICIO < __ | __ | __ | __ | __ | __ | __ | __ | __ | __ | __ | __ | __ | __ > FIM");
 
 log.panel.addLine(`Lorem ipsum dolor sit amet, consectetur adipiscing elit. \x1b[36mVivamus tincidunt ligula sed dolor sollicitudin, non ullamcorper orci ultricies. Donec ligula ligula, interdum at blandit eget, venenatis et arcu. Sed sed ligula maximus, facilisis augue vel, tempor sapien. Pellentesque semper lobortis imperdiet. Morbi scelerisque vestibulum urna a commodo. Nullam erat tortor, fringilla et sapien eget, efficitur blandit leo. Nunc varius dignissim auctor. Nam hendrerit arcu eget eros faucibus, ac laoreet orci tristique.
 
@@ -349,31 +360,6 @@ Nam rutrum dictum magna, quis gravida ex. Nullam consectetur neque a dignissim h
 Proin porta malesuada turpis non feugiat. Donec feugiat vulputate risus, id convallis velit tristique et. Sed semper vitae libero vitae condimentum. Pellentesque ultrices pellentesque eros. Nulla faucibus ullamcorper vestibulum. Proin efficitur eget libero et commodo. Integer varius tellus vitae lectus venenatis venenatis. Nulla ac finibus erat, a malesuada ante. Aliquam mattis mauris ligula, a scelerisque augue aliquam ac.
 
 Vestibulum non pellentesque dolor. Pellentesque id lorem nec purus laoreet ultricies. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce at sollicitudin purus. Sed mollis ut odio eget viverra. Cras nec nulla ligula. Nunc malesuada odio at arcu sollicitudin, ac laoreet ex maximus. Nunc vel tempus dui. Sed dignissim diam nec leo tincidunt maximus. Nunc sed fringilla elit, pretium consectetur elit. Quisque egestas felis lacinia, tristique urna vel, laoreet urna.`);
-
-// menu.addLine("AAA 001 0123456789 001 0123456789 001 0123456789 001 0123456789 001 0123456789 BBB");
-// menu.addLine("AAA 002 0123456789 002 0123456789 002 0123456789 002 0123456789 002 0123456789 BBB");
-// menu.addLine("AAA 003 0123456789 003 0123456789 003 0123456789 003 0123456789 003 0123456789 BBB");
-// menu.addLine("AAA 004 0123456789 004 0123456789 004 0123456789 004 0123456789 004 0123456789 BBB");
-// menu.addLine("AAA 005 0123456789 005 0123456789 005 0123456789 005 0123456789 005 0123456789 BBB");
-// menu.addLine("AAA 006 0123456789 006 0123456789 006 0123456789 006 0123456789 006 0123456789 BBB");
-// menu.addLine("AAA 007 0123456789 007 0123456789 007 0123456789 007 0123456789 007 0123456789 BBB");
-// menu.addLine("AAA 008 0123456789 008 0123456789 008 0123456789 008 0123456789 008 0123456789 BBB");
-// menu.addLine("AAA 009 0123456789 009 0123456789 009 0123456789 009 0123456789 009 0123456789 BBB");
-// menu.addLine("AAA 010 0123456789 010 0123456789 010 0123456789 010 0123456789 010 0123456789 BBB");
-// menu.addLine("AAA 011 0123456789 011 0123456789 011 0123456789 011 0123456789 011 0123456789 BBB");
-// menu.addLine("AAA 012 0123456789 012 0123456789 012 0123456789 012 0123456789 012 0123456789 BBB");
-// menu.addLine("AAA 013 0123456789 013 0123456789 013 0123456789 013 0123456789 013 0123456789 BBB");
-// menu.addLine("AAA 014 0123456789 013 0123456789 013 0123456789 013 0123456789 013 0123456789 BBB");
-// menu.addLine("AAA 015 0123456789 013 0123456789 013 0123456789 013 0123456789 013 0123456789 BBB");
-// menu.addLine("AAA 016 0123456789 013 0123456789 013 0123456789 013 0123456789 013 0123456789 BBB");
-// menu.addLine("AAA 017 0123456789 013 0123456789 013 0123456789 013 0123456789 013 0123456789 BBB");
-// menu.addLine("AAA 018 0123456789 013 0123456789 013 0123456789 013 0123456789 013 0123456789 BBB");
-// menu.addLine("AAA 019 0123456789 013 0123456789 013 0123456789 013 0123456789 013 0123456789 BBB");
-// menu.addLine("AAA 020 0123456789 013 0123456789 013 0123456789 013 0123456789 013 0123456789 BBB");
-// menu.addLine("AAA 021 0123456789 013 0123456789 013 0123456789 013 0123456789 013 0123456789 BBB");
-// menu.addLine("AAA 022 0123456789 013 0123456789 013 0123456789 013 0123456789 013 0123456789 BBB");
-// menu.addLine("AAA 023 0123456789 013 0123456789 013 0123456789 013 0123456789 013 0123456789 BBB");
-// menu.addLine("AAA 024 0123456789 013 0123456789 013 0123456789 013 0123456789 013 0123456789 BBB");
 
 
 // -----------------------------------------------------------------------------

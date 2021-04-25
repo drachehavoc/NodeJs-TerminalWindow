@@ -1,21 +1,36 @@
 import { Cursor } from "./Cursor";
 import { Square } from "./Square";
 
-export class Painel {
+type TCallback = () => any;
+
+export class Panel {
     #square: Square;
     #position: coord = { x: 0, y: 0 };
     #size: coord = { x: 0, y: 0 };
     #cursor: Cursor;
     #data: string[] = [];
-    #callbackOnDraw: Function | null
+    #callbackOnDraw: TCallback | null;
 
-    constructor(square: Square, callback?: Function) {
+    constructor(square: Square, callback?: TCallback) {
         this.#square = square;
         this.#callbackOnDraw = callback ?? null;
         this.#cursor = new Cursor(this.#square);
     }
 
+    get contentPosition() {
+        return { ...this.#position };
+    }
+
+    get contentSize() {
+        return { ...this.#size };
+    }
+
+    get size() {
+        return { ...this.#square.size };
+    }
+
     draw = () => {
+        //
         const initRow = this.#position.y;
         const initCol = this.#position.x;
         const clearLine = ` `.repeat(this.#square.size.x);
@@ -53,21 +68,39 @@ export class Painel {
 
     scrollUp() {
         this.#position.y--;
+        if (this.#position.y < 0) {
+            this.#position.y = 0;
+            return
+        }
         this.draw();
     }
 
     scrollDown() {
         this.#position.y++;
+        const panelSizeY = this.#square.size.y;
+        if (this.#position.y > this.#size.y - panelSizeY) {
+            this.#position.y = this.#size.y - panelSizeY;
+            return;
+        }
         this.draw();
     }
 
     scrollLeft() {
         this.#position.x--;
+        if (this.#position.x < 0) {
+            this.#position.x = 0;
+            return
+        }
         this.draw();
     }
 
     scrollRight() {
         this.#position.x++;
+        const panelSizeX = this.#square.size.x;
+        if (this.#position.x > this.#size.x - panelSizeX) {
+            this.#position.x = this.#size.x - panelSizeX;
+            return;
+        }
         this.draw();
     }
 }
