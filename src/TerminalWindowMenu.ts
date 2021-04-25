@@ -3,12 +3,6 @@ import { TerminalWindow } from "./TerminalWindow";
 export class TerminalWindowMenu extends TerminalWindow {
     #selected = 0;
 
-    _filterDrawContentLine(line: string, cnt: number, lineIdx: number, lineLength: number) {
-        return lineIdx == this.#selected
-            ? `\x1b[45m\x1b[37m${line}\x1b[0m`
-            : `\x1b[0m${line}`
-    }
-
     // onlyScrollDown() {
     //     super.scrollDown();
     // }

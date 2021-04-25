@@ -16,8 +16,8 @@ export class TerminalWindow {
         if (nextIdx > windowList.length - 1)
             nextIdx = 0;
         currentWindow = windowList[nextIdx];
-        prevWindow.#drawBorders();
-        currentWindow.#drawBorders();
+        prevWindow.#drawFrame();
+        currentWindow.#drawFrame();
         return currentWindow;
     }
 
@@ -37,8 +37,6 @@ export class TerminalWindow {
 
     #title: string;
     #scrollbar: { position: coord };
-    #stdout = process.stdout;
-
     #cursor: Cursor;
     #square: Square;
     #panel!: Panel;
@@ -58,7 +56,7 @@ export class TerminalWindow {
         //
         this.#scrollbar = { position: { x: 0, y: 0 } };
         //
-        this.#drawBorders();
+        this.#drawFrame();
     }
 
     get panel() {
@@ -71,13 +69,13 @@ export class TerminalWindow {
         return this.#panel;
     }
 
-    #drawBorders = () => {
+    #drawFrame = () => {
         //
         const size = this.#square.size;
         const cr = this.#cursor;
         // COLOR
         currentWindow == this
-            ? cr.color("magenta", null)
+            ? cr.alterColor()
             : cr.reset();
         // TOP LEFT CORNER
         cr.left(0);
@@ -138,7 +136,7 @@ export class TerminalWindow {
         if (contentSize.y > panelSize.y) {
             // color
             currentWindow == this
-                ? cr.color("magenta", null)
+                ? cr.alterColor()
                 : cr.reset();
             // clean
             cr.right(0);
@@ -148,52 +146,32 @@ export class TerminalWindow {
             pos.y = this.#calcScrollBarPosition('y');
             cr.right(0);
             cr.top(pos.y + 1);
-            cr.write(`+`);
+            cr.write(`┃`);
         }
 
         // DRAW HORIZONTAL
         if (contentSize.x > panelSize.x) {
             // color
             currentWindow == this
-                ? cr.color("magenta", null)
+                ? cr.alterColor()
                 : cr.reset();
             // clean
             cr.left(pos.x + 1);
             cr.bottom(0);
-            cr.write("─");
+            cr.write("──");
             // draw
             pos.x = this.#calcScrollBarPosition('x');
             cr.left(pos.x + 1);
             cr.bottom(0);
-            cr.write(`+`);
+            cr.write(`━━`);
         }
     }
 
     #calcScrollBarPosition = (direction: "x" | "y") => {
         const realPanelSize = this.panel.size[direction]
-        const panelSize = realPanelSize - 1;
+        const panelSize = realPanelSize - { x: 2, y: 1 }[direction];
         const contentPosition = this.panel.contentPosition[direction];
         const contentSize = this.panel.contentSize[direction] - realPanelSize;
         return Math.round((contentPosition * panelSize) / contentSize);
-    }
-
-    _drawScrollBar = () => {
-        // this._isSelectedColor();
-
-        // if (this.#content.size.y > this.#contentPanel.size.y) {
-        //     this._cursor(this.#square, false, 0, true, this.#scrollbar.position.y + 1);
-        //     this._write(`│`)
-        //     this.#scrollbar.position.y = this._calcBarPosition("y");
-        //     this._cursor(this.#square, false, 0, true, this.#scrollbar.position.y + 1);
-        //     this._write(`║`)
-        // }
-
-        // if (this.#content.size.x > this.#contentPanel.size.x) {
-        //     this._cursor(this.#square, true, this.#scrollbar.position.x + 1, false, 0);
-        //     this._write(`─`)
-        //     this.#scrollbar.position.x = this._calcBarPosition("x");
-        //     this._cursor(this.#square, true, this.#scrollbar.position.x + 1, false, 0);
-        //     this._write(`═`)
-        // }
     }
 }

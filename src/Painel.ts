@@ -29,7 +29,56 @@ export class Panel {
         return { ...this.#square.size };
     }
 
-    draw = () => {
+    addContent(content: string) {
+        const contentLines = content.split(/\n/gm);
+        contentLines.forEach(content => {
+            if (content.length > this.#size.x)
+                this.#size.x = content.length;
+        });
+        this.#data.push(...contentLines);
+        this.#size.y = this.#data.length;
+        this.#drawContent();
+    }
+
+    scrollUp() {
+        this.#position.y--;
+        if (this.#position.y < 0) {
+            this.#position.y = 0;
+            return
+        }
+        this.#drawContent();
+    }
+
+    scrollDown() {
+        this.#position.y++;
+        const panelSizeY = this.#square.size.y;
+        if (this.#position.y > this.#size.y - panelSizeY) {
+            this.#position.y = this.#size.y - panelSizeY;
+            return;
+        }
+        this.#drawContent();
+    }
+
+    scrollLeft() {
+        this.#position.x--;
+        if (this.#position.x < 0) {
+            this.#position.x = 0;
+            return
+        }
+        this.#drawContent();
+    }
+
+    scrollRight() {
+        this.#position.x++;
+        const panelSizeX = this.#square.size.x;
+        if (this.#position.x > this.#size.x - panelSizeX) {
+            this.#position.x = this.#size.x - panelSizeX;
+            return;
+        }
+        this.#drawContent();
+    }
+
+    #drawContent = () => {
         //
         const initRow = this.#position.y;
         const initCol = this.#position.x;
@@ -53,54 +102,5 @@ export class Panel {
         //
         if (this.#callbackOnDraw)
             this.#callbackOnDraw();
-    }
-
-    addLine(content: string) {
-        const contentLines = content.split(/\n/gm);
-        contentLines.forEach(content => {
-            if (content.length > this.#size.x)
-                this.#size.x = content.length;
-        });
-        this.#data.push(...contentLines);
-        this.#size.y = this.#data.length;
-        this.draw();
-    }
-
-    scrollUp() {
-        this.#position.y--;
-        if (this.#position.y < 0) {
-            this.#position.y = 0;
-            return
-        }
-        this.draw();
-    }
-
-    scrollDown() {
-        this.#position.y++;
-        const panelSizeY = this.#square.size.y;
-        if (this.#position.y > this.#size.y - panelSizeY) {
-            this.#position.y = this.#size.y - panelSizeY;
-            return;
-        }
-        this.draw();
-    }
-
-    scrollLeft() {
-        this.#position.x--;
-        if (this.#position.x < 0) {
-            this.#position.x = 0;
-            return
-        }
-        this.draw();
-    }
-
-    scrollRight() {
-        this.#position.x++;
-        const panelSizeX = this.#square.size.x;
-        if (this.#position.x > this.#size.x - panelSizeX) {
-            this.#position.x = this.#size.x - panelSizeX;
-            return;
-        }
-        this.draw();
     }
 }

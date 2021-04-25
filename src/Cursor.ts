@@ -57,6 +57,10 @@ export class Cursor {
         this.write("\x1b[0m");
     }
 
+    alterColor() {
+        this.color("cyan", null);
+    }
+
     color(foreground: keyof typeof colors.foreground | null, background: keyof typeof colors.background | null) {
         if (foreground)
             this.write(colors.foreground[foreground]);
