@@ -1,6 +1,6 @@
 import { Cursor } from "./Cursor";
-import { Panel } from "./Painel";
-import { Square } from "./Square";
+import { Panel } from "./Panel";
+import { Box } from "./Box";
 
 let currentWindow: TerminalWindow;
 
@@ -38,7 +38,7 @@ export class TerminalWindow {
     #title: string;
     #scrollbar: { position: coord };
     #cursor: Cursor;
-    #square: Square;
+    #box: Box;
     #panel!: Panel;
 
     constructor(positionX: number, positionY: number, sizeX: number | null, sizeY: number | null, title: string = "") {
@@ -49,50 +49,64 @@ export class TerminalWindow {
         //
         this.#title = title;
         //
-        this.#square = new Square(positionX, positionY);
-        this.#square.setSize(sizeX, sizeY);
+        this.#box = new Box(positionX, positionY);
+        this.#box.setSize(sizeX, sizeY);
         //
-        this.#cursor = new Cursor(this.#square);
+        this.#cursor = new Cursor(this.#box);
         //
         this.#scrollbar = { position: { x: 0, y: 0 } };
         //
         this.#drawFrame();
     }
 
+    get PanelClass() {
+        return Panel;
+    }
+
+    get title() {
+        return this.#title;
+    }
+
     get panel() {
-        this.#panel = new Panel(this.#square.clone(1, 1, -1, -1), this.#drawScrollBars.bind(this));
-        Object.defineProperty(this, "panel", { get: this.#alreadyCreatedPanel.bind(this) });
+        if (!this.#panel)
+            this.#panel = new this.PanelClass(this.#box.clone(1, 1, -1, -1), this.#drawScrollBars.bind(this));
         return this.#panel;
     }
 
-    #alreadyCreatedPanel = () => {
-        return this.#panel;
+    update() {
+        this.#drawFrame();
+        this.panel.drawContent();
     }
 
     #drawFrame = () => {
         //
-        const size = this.#square.size;
+        const size = this.#box.size;
         const cr = this.#cursor;
         // COLOR
         currentWindow == this
             ? cr.alterColor()
             : cr.reset();
+
         // TOP LEFT CORNER
         cr.left(0);
         cr.top(0);
         cr.write("┌");
+
         // RIGHT TOP CORNER
         cr.right(0);
         cr.top(0);
         cr.write("┐");
+
         // LET BOTTOM CORNER
         cr.left(0);
         cr.bottom(0);
         cr.write("└");
+
         // RIGHT TTOM CORNER
         cr.right(0);
         cr.bottom(0);
         cr.write("┘");
+
         // HORIZONTAL BAR
         const horizontalBar = "─".repeat(size.x - 1);
         // TOP
@@ -103,6 +117,7 @@ export class TerminalWindow {
         cr.left(1);
         cr.bottom(0);
         cr.write(horizontalBar);
+
         // VERTICAL BAR
         for (let row = 1; row < size.y; row++) {
             cr.top(row);
@@ -113,23 +128,25 @@ export class TerminalWindow {
             cr.right(0);
             cr.write(`│`);
         }
+
         // TITLE
-        if (this.#title) {
-            const title = this.#title.substring(0, size.x - 3);
+        if (this.title) {
+            const title = this.title.substring(0, size.x - 3);
             if (!title.length) return;
             cr.left(1);
             cr.top(0);
             cr.write(`[${title}]`);
         }
+
         //
         this.#drawScrollBars();
     }
 
     #drawScrollBars = () => {
         //
+        const panelSize = this.panel.size;
         const cr = this.#cursor;
         const pos = this.#scrollbar.position;
-        const panelSize = this.panel.size;
         const contentSize = this.panel.contentSize;
 
         // DRAW VERTICAL

@@ -1,4 +1,4 @@
-import { Square } from "./Square";
+import { Box } from "./Box";
 
 const colors = {
     foreground: {
@@ -25,31 +25,31 @@ const colors = {
 }
 
 export class Cursor {
-    #square;
+    #box: Box;
     #position: coord;
 
-    constructor(square: Square) {
-        this.#square = square;
+    constructor(square: Box) {
+        this.#box = square;
         this.#position = square.start;
     }
 
     left(pos: number) {
-        this.#position.x = this.#square.start.x + pos;
+        this.#position.x = this.#box.start.x + pos;
         process.stdout.cursorTo(this.#position.x, this.#position.y);
     }
 
     right(pos: number) {
-        this.#position.x = this.#square.end.x - pos;
+        this.#position.x = this.#box.end.x - pos;
         process.stdout.cursorTo(this.#position.x, this.#position.y);
     }
 
     top(pos: number) {
-        this.#position.y = this.#square.start.y + pos;
+        this.#position.y = this.#box.start.y + pos;
         process.stdout.cursorTo(this.#position.x, this.#position.y);
     }
 
     bottom(pos: number) {
-        this.#position.y = this.#square.end.y - pos;
+        this.#position.y = this.#box.end.y - pos;
         process.stdout.cursorTo(this.#position.x, this.#position.y);
     }
 
@@ -59,6 +59,11 @@ export class Cursor {
 
     alterColor() {
         this.color("cyan", null);
+    }
+
+
+    alterColorSelectedLine() {
+        this.color("white", "cyan");
     }
 
     color(foreground: keyof typeof colors.foreground | null, background: keyof typeof colors.background | null) {

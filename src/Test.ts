@@ -1,4 +1,5 @@
 import { TerminalWindow } from "./TerminalWindow";
+import { TerminalWindowGroup } from "./TerminalWindowGroup";
 import { TerminalWindowMenu } from "./TerminalWindowMenu";
 
 // -----------------------------------------------------------------------------
@@ -14,38 +15,41 @@ process.on('exit', () => {
 
 const menu = new TerminalWindowMenu(0, 0, 25, -10, 'menu');
 const info = new TerminalWindow(0, -9, 25, null, 'info');
-const log = new TerminalWindow(26, 0, null, null, 'log');
+const log = new TerminalWindowGroup(26, 0, null, null, 'log');
 
-menu.panel.addContent(`Option 01 ___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|`);
-menu.panel.addContent(`Option 02`);
-menu.panel.addContent(`Option 03`);
-menu.panel.addContent(`Option 04`);
-menu.panel.addContent(`Option 05`);
-menu.panel.addContent(`Option 06`);
-menu.panel.addContent(`Option 07`);
-menu.panel.addContent(`Option 08`);
-menu.panel.addContent(`Option 09`);
-menu.panel.addContent(`Option 10`);
-menu.panel.addContent(`Option 11`);
-menu.panel.addContent(`Option 12`);
-menu.panel.addContent(`Option 13`);
-menu.panel.addContent(`Option 14`);
-menu.panel.addContent(`Option 15`);
-menu.panel.addContent(`Option 16`);
-menu.panel.addContent(`Option 17`);
-menu.panel.addContent(`Option 18`);
-menu.panel.addContent(`Option 19`);
-menu.panel.addContent(`Option 20`);
-menu.panel.addContent(`Option 21`);
-menu.panel.addContent(`Option 22`);
-menu.panel.addContent(`Option 23`);
-menu.panel.addContent(`Option 24`);
-menu.panel.addContent(`Option 25`);
-menu.panel.addContent(`Option 26`);
-menu.panel.addContent(`Option 27`);
-menu.panel.addContent(`Option 28`);
-menu.panel.addContent(`Option 29`);
-menu.panel.addContent(`Option 30`);
+const panelB = log.addPanel("Painel B");
+panelB.addContent("EU SOU O PANEL B");
+
+menu.panel.addOption(`Option 01 ___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|`, idx => log.selectOriginalPanel());
+menu.panel.addOption(`Option 02`, idx => log.selectPanel(panelB) );
+menu.panel.addOption(`Option 03`);
+menu.panel.addOption(`Option 04`);
+menu.panel.addOption(`Option 05`);
+menu.panel.addOption(`Option 06`);
+menu.panel.addOption(`Option 07`);
+menu.panel.addOption(`Option 08`);
+menu.panel.addOption(`Option 09`);
+menu.panel.addOption(`Option 10`);
+menu.panel.addOption(`Option 11`);
+menu.panel.addOption(`Option 12`);
+menu.panel.addOption(`Option 13`);
+menu.panel.addOption(`Option 14`);
+menu.panel.addOption(`Option 15`);
+menu.panel.addOption(`Option 16`);
+menu.panel.addOption(`Option 17`);
+menu.panel.addOption(`Option 18`);
+menu.panel.addOption(`Option 19`);
+menu.panel.addOption(`Option 20`);
+menu.panel.addOption(`Option 21`);
+menu.panel.addOption(`Option 22`);
+menu.panel.addOption(`Option 23`);
+menu.panel.addOption(`Option 24`);
+menu.panel.addOption(`Option 25`);
+menu.panel.addOption(`Option 26`);
+menu.panel.addOption(`Option 27`);
+menu.panel.addOption(`Option 28`);
+menu.panel.addOption(`Option 29`);
+menu.panel.addOption(`Option 30`);
 
 info.panel.addContent("INICIO < __ | __ | __ | __ | __ | __ | __ | __ | __ | __ | __ | __ | __ | __ > FIM");
 info.panel.addContent("INICIO                                    |                                  > FIM");
@@ -380,15 +384,20 @@ stdin.on("keypress", (c, key) => {
         return;
     }
 
-    // if (key.name == "up" && key.ctrl && TerminalWindow.currentWindow instanceof TerminalWindowMenu) {
-    //     TerminalWindow.currentWindow.onlyScrollUp();
-    //     return;
-    // }
+    if (key.name == "return" && TerminalWindow.currentWindow instanceof TerminalWindowMenu) {
+        TerminalWindow.currentWindow.panel.selectCurretOption();
+        return;
+    }
 
-    // if (key.name == "down" && key.ctrl && TerminalWindow.currentWindow instanceof TerminalWindowMenu) {
-    //     TerminalWindow.currentWindow.onlyScrollDown();
-    //     return;
-    // }
+    if (key.name == "up" && key.ctrl && TerminalWindow.currentWindow instanceof TerminalWindowMenu) {
+        TerminalWindow.currentWindow.panel.onlyScrollUp();
+        return;
+    }
+
+    if (key.name == "down" && key.ctrl && TerminalWindow.currentWindow instanceof TerminalWindowMenu) {
+        TerminalWindow.currentWindow.panel.onlyScrollDown();
+        return;
+    }
 
     if (key.name == "up") {
         TerminalWindow.currentWindow.panel.scrollUp();
@@ -412,7 +421,6 @@ stdin.on("keypress", (c, key) => {
 
     if (key.name == 'c' && key.ctrl) {
         process.exit();
-        return;
     }
 
     console.log(c, key)

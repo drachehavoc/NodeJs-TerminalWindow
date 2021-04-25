@@ -1,6 +1,6 @@
 const zeroCoord = () => ({ x: NaN, y: NaN });
 
-export class Square {
+export class Box {
     #start: coord = zeroCoord();
     #end: coord = zeroCoord();
     #size: coord = zeroCoord();
@@ -30,7 +30,7 @@ export class Square {
     }
 
     clone(startX: number = 0, startY: number = 0, sizeX: number = 0, sizeY: number = 0) {
-        const n = new Square(this.#start.x + startX, this.#start.y + startY);
+        const n = new Box(this.#start.x + startX, this.#start.y + startY);
         n.setSize(this.#size.x + sizeX, this.#size.y + sizeY);
         return n;
     }
