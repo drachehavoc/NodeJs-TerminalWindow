@@ -157,15 +157,15 @@ export class TerminalWindow {
 
         // DRAW VERTICAL
         if (contentSize.y > panelSize.y) {
-            // color
+            // COLOR
             currentWindow == this
                 ? cr.alterColor()
                 : cr.reset();
-            // clean
+            // CLEAN
             cr.right(0);
             cr.top(pos.y + 1);
             cr.write(`│`);
-            // draw
+            // DRAW
             pos.y = this.#calcScrollBarPosition('y');
             cr.right(0);
             cr.top(pos.y + 1);
@@ -174,15 +174,15 @@ export class TerminalWindow {
 
         // DRAW HORIZONTAL
         if (contentSize.x > panelSize.x) {
-            // color
+            // COLOR
             currentWindow == this
                 ? cr.alterColor()
                 : cr.reset();
-            // clean
+            // CLEAN
             cr.left(pos.x + 1);
             cr.bottom(0);
             cr.write("──");
-            // draw
+            // DRAW
             pos.x = this.#calcScrollBarPosition('x');
             cr.left(pos.x + 1);
             cr.bottom(0);

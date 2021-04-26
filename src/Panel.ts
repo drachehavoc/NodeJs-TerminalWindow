@@ -4,6 +4,7 @@ import { Box, LinkedBox } from "./Box";
 type TCallback = () => any;
 
 export class Panel {
+    #scrollOnAddContent: boolean = false;
     #box: Box | LinkedBox;
     #position: coord = { x: 0, y: 0 };
     #size: coord = { x: 0, y: 0 };
@@ -42,15 +43,23 @@ export class Panel {
     }
 
     addContent(content: string, addAndDraw: boolean = true) {
-        const contentLines = content.split(/\n/gm);
+        const contentLines = content.toString().replace(/\r?\n$/, "").split(/\r?\n/gm);
         contentLines.forEach(content => {
             if (content.length > this.#size.x)
                 this.#size.x = content.length;
         });
         this.#data.push(...contentLines);
         this.#size.y = this.#data.length;
+
+        if (this.#scrollOnAddContent && this.#size.y > this.#box.size.y)
+            this.#position.y += contentLines.length;
+
         if (addAndDraw)
             this.drawContent();
+    }
+
+    toggleFixedScroll() {
+        this.#scrollOnAddContent = !this.#scrollOnAddContent;
     }
 
     scrollUp() {

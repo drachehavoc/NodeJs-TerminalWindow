@@ -41,6 +41,9 @@ export class PanelMenu extends Panel {
         if (onSelect)
             this.#onSlectCallbacks[this.contentSize.y] = onSelect;
 
+        if (this.contentSize.y <= 0)
+            this.selectCurretOption()
+
         super.addContent(content);
     }
 
